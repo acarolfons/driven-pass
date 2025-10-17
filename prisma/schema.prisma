@@ -20,6 +20,8 @@ model User {
   email    String       @unique
   password String
   credentials Credential[]
+
+  @@map("users")
 }
 
 model Credential {
@@ -32,4 +34,6 @@ model Credential {
   user      User    @relation(fields: [userId], references: [id])
   
   @@unique([userId, title]) // garante títulos únicos por usuário
+
+  @@map("credentials")
 }
