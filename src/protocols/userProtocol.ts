@@ -10,3 +10,8 @@ export type UserData = Omit<User, "id">
 export type UserInput = UserData & {
     confirmPassword: string
 }
+
+export type UserLogin = {
+    email: string;
+    password: string
+}
