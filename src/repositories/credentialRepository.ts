@@ -29,7 +29,7 @@ export async function findCredentialByIdAndUser(userId: number, id: number){
 }
 
 export async function upNewCredential(id: number, credentialUpdated: CredentialData){
-   await prisma.credential.update({
+   return await prisma.credential.update({
       where: { id },
       data: credentialUpdated,
    });

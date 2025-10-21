@@ -46,8 +46,8 @@ export async function getCredentialById(userId: number, id: number){
     return decrypted
 }
 
-export async function upCredential(id: number, userId:number, credentialData: CredentialData){
-  const credential = await findCredentialByIdAndUser(id, userId)
+export async function upCredential( userId:number, id: number, credentialData: CredentialData){
+  const credential = await findCredentialByIdAndUser(userId, id)
   if (!credential) throw { type: 'Not Found', message: 'Credencial não encontrada!' }
 
   const credentialWithTitle = await findUserTitle(credentialData.title, userId);
