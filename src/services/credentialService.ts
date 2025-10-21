@@ -26,7 +26,7 @@ export async function createNewCredential(credentialData: CredentialData){
 
 export async function getNewCredential(userId: number){
     const credentials = await findAllCredentialsByUser(userId);
-    const decrypted = credentials.map((credential) => ({
+    const decrypted = credentials.map((credential:CredentialData) => ({
     ...credential,
     password: cryptr.decrypt(credential.password),
   }));
