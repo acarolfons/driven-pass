@@ -1,28 +1,13 @@
-import jwt from "jsonwebtoken";
-import dotenv from "dotenv";
-import { NextFunction, Request, Response } from "express";
+import { Request, Response, NextFunction } from "express";
+import { ObjectSchema } from "joi";
 
-dotenv.config();
-const secret = process.env.JWT_SECRET
-
-function tokenValidation(req: Request, res: Response, next: NextFunction) {
-  const authHeader = req.headers["authorization"];
-  const token = authHeader && authHeader.split(" ")[1];
-
-  if (!token) {
-    return res.status(401).json({ message: "Token não fornecido" });
-  }
-
-  try {
-    const decoded = jwt.verify(token, secret as string) as { userId: number };
-
-    (req as any).user = {
-      userId: decoded.userId,
-    };
-
+export function validateSchema(schema: ObjectSchema) {
+  return (req: Request, res: Response, next: NextFunction) => {
+    const validation = schema.validate(req.body, { abortEarly: false });
+    if (validation.error) {
+      const errors = validation.error.details.map(detail => detail.message);
+      return res.status(422).send(errors);
+    }
     next();
-  } catch (err) {
-    return res.status(403).json({ message: "Token inválido" });
-  }
+  };
 }
-export default tokenValidation
