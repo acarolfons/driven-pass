@@ -3,7 +3,7 @@ import { deleteCredentialById, findAllCredentialsByUser, findCredentialByIdAndUs
 import Cryptr from "cryptr";
 import dotenv from "dotenv";
 dotenv.config()
-const secret = process.env.CRYPT_SECRET
+const secret = process.env.CRYPTR_SECRET
 if(!secret) throw new Error("CRYPTR_SECRET não definido nas variáveis de ambiente");
 const cryptr = new Cryptr(secret)
 
